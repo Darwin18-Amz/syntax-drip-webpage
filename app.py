@@ -1,23 +1,31 @@
-# server.py
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 from google.oauth2 import service_account
 import google.auth.transport.requests
 import requests
+import os
+import json
 
 app = Flask(__name__)
 
-# Load service account and setup auth
-creds = service_account.Credentials.from_service_account_file(
-    "serviceAccountKey.json",
+# Load service account from environment variable (NOT from file)
+try:
+    service_account_info = json.loads(os.environ["GOOGLE_APPLICATION_CREDENTIALS_JSON"])
+except KeyError:
+    raise Exception("❌ Missing environment variable: GOOGLE_APPLICATION_CREDENTIALS_JSON")
+
+creds = service_account.Credentials.from_service_account_info(
+    service_account_info,
     scopes=["https://www.googleapis.com/auth/datastore"]
 )
+
+# Refresh to get access token
 auth_req = google.auth.transport.requests.Request()
 creds.refresh(auth_req)
 token = creds.token
 
-# Replace with your Firebase project ID
-PROJECT_ID = "syntax-drip-webpage"  # <-- make sure this matches your real project ID
+# Replace with your actual Firebase project ID
+PROJECT_ID = "syntax-drip-webpage"
 FIRESTORE_URL = f"https://firestore.googleapis.com/v1/projects/{PROJECT_ID}/databases/(default)/documents/callbacks"
 
 @app.route("/")
@@ -38,7 +46,6 @@ def submit_phone():
 
         full_number = country_code + phone_number
 
-        # Firestore REST payload
         payload = {
             "fields": {
                 "phoneNumber": {"stringValue": full_number},
