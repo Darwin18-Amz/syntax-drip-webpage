@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Syntax Drip</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Final year projects made easy. Get the full bundle for ₹2,999 – complete project, docs, PPT, and expert guidance.">
+  <meta name="keywords" content="final year projects, cheap college projects, mini projects, project support, syntax drip, student projects">
+  <meta name="author" content="Syntax Drip">
+  <meta name="robots" content="index, follow">
+
+  <!-- Social Sharing Tags -->
+  <meta property="og:title" content="Syntax Drip - Final Year Projects Just ₹2,999">
+  <meta property="og:description" content="Get complete project + docs + support. Built by devs who know deadlines.">
+  <meta property="og:image" content="https://yourdomain.com/static/project-cover.jpg">
+  <meta property="og:url" content="https://yourdomain.com">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Syntax Drip - Final Year Projects Just ₹2,999">
+  <meta name="twitter:description" content="Complete project + docs + support for just ₹2,999.">
+  <meta name="twitter:image" content="https://yourdomain.com/static/project-cover.jpg">
+
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;500&display=swap');
+
+    :root {
+      --bg: #10151f;
+      --primary: #1abc9c;
+      --secondary: #e67e22;
+      --text: #ecf0f1;
+      --shadow: 0 6px 20px rgba(0,0,0,0.4);
+      --transition: 0.6s ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%; width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Roboto', sans-serif;
+      overflow-y: auto;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar { display: none; }
+
+    section {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 2rem;
+      background: rgba(16, 21, 31, 0.85);
+      backdrop-filter: blur(6px);
+      box-shadow: var(--shadow);
+      z-index: 100;
+    }
+
+    .header-left,
+    .header-center,
+    .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-left {
+      justify-content: flex-start;
+    }
+
+    .header-right {
+      justify-content: flex-end;
+    }
+
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      color: var(--primary);
+      font-size: 2rem;
+      letter-spacing: 5px;
+    }
+
+    nav a {
+      margin-left: 1.5rem;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: color var(--transition);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 100%; height: 2px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    nav a:hover {
+      color: var(--secondary);
+    }
+
+    nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .social-icons {
+      display: flex;
+      padding: 0rem 2rem;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .social-icons a {
+      color: var(--text);
+      font-size: 1.5rem;
+      transition: color var(--transition);
+    }
+
+    .social-icons a:hover {
+      color: var(--primary);
+    }
+
+    /* HERO */
+    #hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1650&q=80') center/cover fixed;
+      position: relative;
+    }
+
+    #hero::after {
+      content: ' ';
+      position: absolute; inset: 0;
+      background: rgba(16,21,31,0.7);
+    }
+
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 600px;
+      padding: 1rem;
+    }
+
+    .hero-logo {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--primary);
+      white-space: nowrap;
+      letter-spacing: 6px;
+      margin-bottom: 1rem;
+
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .hero-content h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 2rem);
+      line-height: 2;
+      letter-spacing: 3px;
+      color: #ecf0f1;
+      margin-bottom: 3rem;
+
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s ease 0.4s forwards;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .hero-content button {
+      background: var(--secondary);
+      color: #111;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 4px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s ease 0.8s forwards;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .hero-content button:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    /* SECTIONS */
+    .section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity var(--transition), transform var(--transition);
+      scroll-snap-align: start;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .split {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .text, .flip {
+      flex: 1 1 300px;
+    }
+
+    .text h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    .text p {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .text a.btn {
+      display: inline-block;
+      background: var(--secondary);
+      color: #111;
+      padding: .5rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .text a.btn:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .flip {
+      perspective: 800px;
+    }
+
+    .flip-inner {
+      width: 100%; height: 200px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform var(--transition);
+    }
+
+<!--    .section:hover .flip-inner {-->
+<!--      transform: rotateY(180deg);-->
+<!--    }-->
+
+    .side {
+      position: absolute; inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backface-visibility: hidden;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      border-radius: 4px;
+    }
+
+    .back {
+      background: var(--primary);
+      color: #111;
+      transform: rotateY(180deg);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(16,21,31,0.85);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .contact-box {
+  flex: 1 1 300px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns */
+  gap: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.7rem; /* Bigger font */
+  color: var(--text);
+}
+
+.contact-box a {
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: color var(--transition);
+}
+
+.contact-box a:hover {
+  color: var(--primary);
+}
+
+/* PHONE INPUT STYLES ADDED BELOW (UNTOUCHED ABOVE) */
+.phone-input-wrapper {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.phone-input-wrapper select,
+.phone-input-wrapper input {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--primary);
+  background: transparent;
+  color: var(--text);
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.phone-input-wrapper input::placeholder {
+  color: #ccc;
+}
+
+.phone-input-wrapper button {
+  background: var(--secondary);
+  color: #111;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.phone-input-wrapper button:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
+}
+
+.project-box {
+  flex: 1 1 300px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.7rem;
+  color: var(--text);
+}
+.project-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+
+.pricing-offer {
+  text-align: center;
+  font-size: 1.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.highlight-price {
+  font-size: 2.8rem;
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.package-title {
+  color: #ff6b6b;
+  margin-left: 15px;
+  margin-bottom: 20px;
+}
+
+.package-item {
+  color: var(--primary);
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+.line-highlight {
+  color: #ff6b6b;
+}
+
+.text {
+  position: relative; /* 👈 Add this */
+}
+
+#toast {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  background-color: #1abc9c;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  visibility: hidden;
+  opacity: 0;
+  z-index: 9999;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#toast.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) scale(1.05);
+  animation: bouncePop 0.5s ease;
+}
+
+@keyframes bouncePop {
+  0% {
+    transform: translateX(-50%) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+
+
+
+@keyframes fadein {
+  from { bottom: 20px; opacity: 0; }
+  to { bottom: 40px; opacity: 1; }
+}
+
+@keyframes fadeout {
+  from { bottom: 40px; opacity: 1; }
+  to { bottom: 20px; opacity: 0; }
+}
+
+
+    @media(max-width:768px) {
+      header { padding: 1rem; }
+      .hero-content { padding: 1rem; }
+      .split { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <div class="header-center">
+    <div class="logo">SYNTAX DRIP</div>
+  </div>
+
+  <div class="header-right social-icons">
+    <a href="https://wa.me/918807427414?text=Hi%20Syntax%20Drip%2C%20I'm%20interested%20in%20your%20project%20package.%20Please%20share%20details."
+       target="_blank" title="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=syntaxdrip@gmail.com&su=Project%20Query&body=Hi%20Syntax%20Drip%2C%20I'm%20interested%20in%20your%20project%20package.%20Please%20share%20details."
+       target="_blank" title="Email">
+      <i class="fas fa-envelope"></i>
+    </a>
+    <a href="https://www.instagram.com/syntax_drip" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.linkedin.com/in/syntax-drip-58a116374/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+  </div>
+</header>
+
+<section id="hero" class="section visible">
+  <div class="hero-content">
+    <h1 class="hero-logo">PROJECT PANIC? CHILL, BRO.</h1>
+    <h2>Best Project. Low Price. Fast Delivery</h2>
+    <button onclick="document.getElementById('projects').scrollIntoView()">Explore projects</button>
+  </div>
+</section>
+
+<section id="projects" class="section">
+  <div class="split">
+    <div class="text">
+      <h2>Projects</h2>
+      <p>
+    Struggling with your final year project? Don’t know where to start, what to build, or how to present? We make it super easy —<span class="line-highlight">
+        From idea to final review.</span>
+        We provide a project bundle that comes with a complete package and complimentary add-ons along with full guide.
+    It’s fully compatible with all platforms   <span class="line-highlight">
+        (Windows, Mac, Linux)</span>
+    — all wrapped up in a way that’s easy to understand, cleanly built, and always delivered on time.
+    Hurrying the day before your review?
+    Don’t stress — that’s exactly why we’re here. Hit us up even for last-minute submissions.
+
+    Just clean, simple, and ready-to-use project support — designed by developers who’ve faced the same deadlines.
+      </p>
+
+      <a href="#pricing" class="btn">Explore Price</a>
+    </div>
+    <div class="project-box">
+      <img src="{{ url_for('static', filename='pexels-pixabay-270348.jpg') }}" alt="College Final Year Project Screenshot">
+      <ul>
+        <li class="package-title"><strong>FULL PACKAGE INCLUDES:</strong></li>
+        <li class="package-item">Full Project 💻</li>
+        <li class="package-item">Base Paper 📄</li>
+        <li class="package-item">Architecture Diagram 📊</li>
+        <li class="package-item">Presentation 🖥️</li>
+        <li class="package-item">Documentation 📚</li>
+        <li class="package-item">Full Guide 📝</li>
+      </ul>
+    </div>
+
+</section>
+
+<section id="pricing" class="section">
+  <div class="split">
+    <div class="project-box">
+      <div class="pricing-offer">
+        <p>Why pay ₹4,000 – ₹25,000 for Projects?</p>
+        <p>Get Final Year Project Bundle – Just for</p>
+        <p class="highlight-price">₹2,999 👑</p>
+        <small>(Complete Project + Documents + PPT + Support)</small>
+      </div>
+    </div>
+    <div class="text">
+      <h2>Pricing</h2>
+      <p><span class="line-highlight">Why So Cheap?</span> How’s It Just ₹2,999?
+        We’re students-turned-developers who once stood where you are. And honestly, we’re done watching students get milked for ₹20K+ in the name of “final year projects.”
+        The market’s full of overpriced bundles — so we built something better: Transparent, Affordable, and Reliable.
+        We keep it simple: Quality Projects, Full Support, Low Pricing.
+        All in — <span class="line-highlight">just ₹2,999 Only.</span> You get everything. No hidden charges. No fluff.
+      </p>
+      <a href="#contact" class="btn">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="split">
+    <div class="text">
+      <h2>Contact Us</h2>
+      <p>From general queries to urgent project requests — we’ve got you covered.
+        Reach out via Call, WhatsApp, Email, Instagram, or DM — whatever’s easiest for you.
+        🗓️  <span class="line-highlight">Available: Anytime, Any day.</span></span></p>
+      <div class="phone-input-wrapper">
+        <select id="country-code">
+          <option value="+91">+91</option>
+          <option value="+1">+1</option>
+          <option value="+44">+44</option>
+          <option value="+61">+61</option>
+        </select>
+        <input type="text" id="phone-number" maxlength="10" placeholder="Enter 10-digit number" />
+        <button onclick="submitPhone()">Get Call Back</button>
+      </div>
+    </div>
+
+    <div class="contact-box">
+      <a href="tel:8807427414" title="Call">
+        <i class="fas fa-phone-alt"></i> 8807427414
+      </a>
+      <a href="https://wa.me/918807427414?text=Hi%20Syntax%20Drip%2C%20I'm%20interested%20in%20your%20project%20package.%20Please%20share%20details."
+         target="_blank" title="WhatsApp">
+        <i class="fab fa-whatsapp"></i> syntaxdrip
+      </a>
+      <a href="https://instagram.com/syntax_drip" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> syntax_drip
+      </a>
+      <a href="https://www.facebook.com/people/Syntax-Drip/pfbid0n47rgPVL9jj2RGjzJvbydRvN6SKRFwCZMDDx73KGCxvgAifJLJJgakqttLWuewctl/?mibextid=wwXIfr&rdid=khkyhKcRIQIVmGAz&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AfAnctqKq%2F%3Fmibextid%3DwwXIfr" target="_blank" title="Facebook">
+        <i class="fab fa-facebook"></i> syntaxdrip
+      </a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=syntaxdrip@gmail.com&su=Project%20Query&body=Hi%20Syntax%20Drip%2C%20I'm%20interested%20in%20your%20project%20package.%20Please%20share%20details."
+         target="_blank" title="Email">
+        <i class="fas fa-envelope"></i> syntaxdrip@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/syntax-drip-58a116374?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> syntaxdrip
+      </a>
+    </div>
+  </div>
+</section>
+<footer>© 2025 Syntax Drip — All rights reserved.</footer>
+<script>
+  function showToast(message, isError = false) {
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+  toast.style.backgroundColor = isError ? "#e74c3c" : "#1abc9c";
+
+  // Cancel previous timeout if still running
+  clearTimeout(toast.dismissTimeout);
+
+  // Reset animation by forcing reflow
+  toast.classList.remove("show");
+  toast.style.visibility = "hidden";
+  toast.style.opacity = "0";
+
+  // Wait a single animation frame before re-adding the class
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      toast.classList.add("show");
+      toast.style.visibility = "visible";
+      toast.style.opacity = "1";
+
+      toast.dismissTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+        toast.style.visibility = "hidden";
+        toast.style.opacity = "0";
+      }, 3000);
+    });
+  });
+}
+
+
+  function submitPhone() {
+    const phoneInput = document.getElementById('phone-number');
+    const number = phoneInput.value.trim();
+    const phoneRegex = /^[0-9]{10}$/;
+
+    if (!phoneRegex.test(number)) {
+      showToast("Enter a valid 10-digit number", true);
+    } else {
+      showToast("✅ Submitted! We'll call you back shortly.");
+      phoneInput.value = "";
+    }
+  }
+
+  // Restrict non-numeric characters
+  document.getElementById('phone-number').addEventListener('input', function (e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+</script>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Final Year Project Bundle",
+    "description": "Ready-to-use final year projects with full guide, code, documents, and presentation – just ₹2,999.",
+    "brand": {
+      "@type": "Organization",
+      "name": "Syntax Drip"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "INR",
+      "price": "2999",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+</script>
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section').forEach(section => {
+    observer.observe(section);
+  });
+</script>
+<div id="toast"></div>
+</body>
+</html>
