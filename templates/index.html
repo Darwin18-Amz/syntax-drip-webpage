@@ -653,50 +653,69 @@
 <footer>© 2025 Syntax Drip — All rights reserved.</footer>
 <script>
   function showToast(message, isError = false) {
-  const toast = document.getElementById("toast");
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.style.backgroundColor = isError ? "#e74c3c" : "#1abc9c";
 
-  toast.textContent = message;
-  toast.style.backgroundColor = isError ? "#e74c3c" : "#1abc9c";
+    clearTimeout(toast.dismissTimeout);
+    toast.classList.remove("show");
+    toast.style.visibility = "hidden";
+    toast.style.opacity = "0";
 
-  // Cancel previous timeout if still running
-  clearTimeout(toast.dismissTimeout);
-
-  // Reset animation by forcing reflow
-  toast.classList.remove("show");
-  toast.style.visibility = "hidden";
-  toast.style.opacity = "0";
-
-  // Wait a single animation frame before re-adding the class
-  requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      toast.classList.add("show");
-      toast.style.visibility = "visible";
-      toast.style.opacity = "1";
+      requestAnimationFrame(() => {
+        toast.classList.add("show");
+        toast.style.visibility = "visible";
+        toast.style.opacity = "1";
 
-      toast.dismissTimeout = setTimeout(() => {
-        toast.classList.remove("show");
-        toast.style.visibility = "hidden";
-        toast.style.opacity = "0";
-      }, 3000);
+        toast.dismissTimeout = setTimeout(() => {
+          toast.classList.remove("show");
+          toast.style.visibility = "hidden";
+          toast.style.opacity = "0";
+        }, 3000);
+      });
     });
-  });
-}
-
+  }
 
   function submitPhone() {
     const phoneInput = document.getElementById('phone-number');
+    const countryCodeSelect = document.getElementById('country-code');
     const number = phoneInput.value.trim();
-    const phoneRegex = /^[0-9]{10}$/;
+    const countryCode = countryCodeSelect.value;
 
+    const phoneRegex = /^[0-9]{10}$/;
     if (!phoneRegex.test(number)) {
       showToast("Enter a valid 10-digit number", true);
-    } else {
-      showToast("✅ Submitted! We'll call you back shortly.");
-      phoneInput.value = "";
+      return;
     }
+
+    // Send data to backend
+    fetch("/submit-phone", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        phoneNumber: number,
+        countryCode: countryCode
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        showToast("✅ Submitted! We'll call you back shortly.");
+        phoneInput.value = "";
+      } else {
+        showToast("❌ Failed to save. Try again.", true);
+      }
+    })
+    .catch(err => {
+      console.error("Fetch error:", err);
+      showToast("❌ Server error", true);
+    });
   }
 
-  // Restrict non-numeric characters
+  // Prevent non-numeric input
   document.getElementById('phone-number').addEventListener('input', function (e) {
     this.value = this.value.replace(/[^0-9]/g, '');
   });
