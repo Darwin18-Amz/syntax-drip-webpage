@@ -172,7 +172,7 @@
 
     .hero-logo {
       font-family: 'Poppins', sans-serif;
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(3rem, 8vw, 4rem);
       color: var(--primary);
       white-space: nowrap;
       letter-spacing: 6px;
@@ -365,11 +365,13 @@
   margin-top: 2rem;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 1rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
-.phone-input-wrapper select,
+
 .phone-input-wrapper input {
+  width: 20ch; /* 👈 exactly 20 characters wide */
   padding: 0.5rem 1rem;
   border: 2px solid var(--primary);
   background: transparent;
@@ -379,11 +381,13 @@
   outline: none;
 }
 
+
 .phone-input-wrapper input::placeholder {
   color: #ccc;
 }
 
 .phone-input-wrapper button {
+  white-space: nowrap;
   background: var(--secondary);
   color: #111;
   border: none;
@@ -391,6 +395,7 @@
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 1rem;
   transition: background var(--transition), transform var(--transition);
 }
 
@@ -555,16 +560,16 @@
     <div class="text">
       <h2>Projects</h2>
       <p>
-    Struggling with your final year project? Don’t know where to start, what to build, or how to present? We make it super easy —<span class="line-highlight">
+        Struggling with your final year project? Don’t know where to start, what to build, or how to present? We make it super easy —<span class="line-highlight">
         From idea to final review.</span>
         We provide a project bundle that comes with a complete package and complimentary add-ons along with full guide.
-    It’s fully compatible with all platforms   <span class="line-highlight">
+        It’s fully compatible with all platforms   <span class="line-highlight">
         (Windows, Mac, Linux)</span>
-    — all wrapped up in a way that’s easy to understand, cleanly built, and always delivered on time.
-    Hurrying the day before your review?
-    Don’t stress — that’s exactly why we’re here. Hit us up even for last-minute submissions.
+        — all wrapped up in a way that’s easy to understand, cleanly built, and always delivered on time.
+        Hurrying the day before your review?
+        Don’t stress — that’s exactly why we’re here. Hit us up even for last-minute submissions.
 
-    Just clean, simple, and ready-to-use project support — designed by developers who’ve faced the same deadlines.
+        Just clean, simple, and ready-to-use project support — designed by developers who’ve faced the same deadlines.
       </p>
 
       <a href="#pricing" class="btn">Explore Price</a>
@@ -614,16 +619,13 @@
       <p>From general queries to urgent project requests — we’ve got you covered.
         Reach out via Call, WhatsApp, Email, Instagram, or DM — whatever’s easiest for you.
         🗓️  <span class="line-highlight">Available: Anytime, Any day.</span></span></p>
+      <!-- Name & Phone Input Section -->
       <div class="phone-input-wrapper">
-        <select id="country-code">
-          <option value="+91">+91</option>
-          <option value="+1">+1</option>
-          <option value="+44">+44</option>
-          <option value="+61">+61</option>
-        </select>
-        <input type="text" id="phone-number" maxlength="10" placeholder="Enter 10-digit number" />
+        <input type="text" id="user-name" maxlength="15" placeholder="Your Name" />
+        <input type="text" id="phone-number" maxlength="10" placeholder="Phone Number" />
         <button onclick="submitPhone()">Get Call Back</button>
       </div>
+
     </div>
 
     <div class="contact-box">
@@ -651,6 +653,7 @@
   </div>
 </section>
 <footer>© 2025 Syntax Drip — All rights reserved.</footer>
+
 <script>
   function showToast(message, isError = false) {
     const toast = document.getElementById("toast");
@@ -658,6 +661,7 @@
     toast.style.backgroundColor = isError ? "#e74c3c" : "#1abc9c";
 
     clearTimeout(toast.dismissTimeout);
+
     toast.classList.remove("show");
     toast.style.visibility = "hidden";
     toast.style.opacity = "0";
@@ -678,48 +682,39 @@
   }
 
   function submitPhone() {
+    const nameInput = document.getElementById('user-name');
     const phoneInput = document.getElementById('phone-number');
-    const countryCodeSelect = document.getElementById('country-code');
+    const name = nameInput.value.trim();
     const number = phoneInput.value.trim();
-    const countryCode = countryCodeSelect.value;
-
     const phoneRegex = /^[0-9]{10}$/;
-    if (!phoneRegex.test(number)) {
-      showToast("Enter a valid 10-digit number", true);
-      return;
-    }
 
-    // Send data to backend
-    fetch("/submit-phone", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        phoneNumber: number,
-        countryCode: countryCode
-      })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        showToast("✅ Submitted! We'll call you back shortly.");
-        phoneInput.value = "";
-      } else {
-        showToast("❌ Failed to save. Try again.", true);
-      }
-    })
-    .catch(err => {
-      console.error("Fetch error:", err);
-      showToast("❌ Server error", true);
-    });
+    if (name === "") {
+      showToast("Enter your name", true);
+    } else if (!phoneRegex.test(number)) {
+      showToast("Enter a valid 10-digit number", true);
+    } else {
+      showToast(`✅ Submitted! We'll call you back shortly, ${name}.`);
+      nameInput.value = "";
+      phoneInput.value = "";
+    }
   }
 
-  // Prevent non-numeric input
-  document.getElementById('phone-number').addEventListener('input', function (e) {
-    this.value = this.value.replace(/[^0-9]/g, '');
+  // ✅ Phone number: allow only digits and max 10 characters
+  document.getElementById('phone-number').addEventListener('input', function () {
+    this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+  });
+
+  // ✅ Name: allow only letters and spaces, limit to 15 characters
+  document.getElementById('user-name').addEventListener('input', function () {
+    this.value = this.value
+      .replace(/[^a-zA-Z\s]/g, '')   // only letters & spaces
+      .replace(/\s{2,}/g, ' ')       // remove double spaces
+      .trimStart()                   // no leading spaces
+      .slice(0, 15);                 // limit to 15 chars
   });
 </script>
+
+
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
