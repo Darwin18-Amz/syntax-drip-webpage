@@ -5,10 +5,14 @@ import google.auth.transport.requests
 import requests
 import os
 import json
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
 
-# Load service account from environment variable (NOT from file)
+# Load service account JSON from env variable
 try:
     service_account_info = json.loads(os.environ["GOOGLE_APPLICATION_CREDENTIALS_JSON"])
 except KeyError:
@@ -19,14 +23,11 @@ creds = service_account.Credentials.from_service_account_info(
     scopes=["https://www.googleapis.com/auth/datastore"]
 )
 
-# Refresh to get access token
 auth_req = google.auth.transport.requests.Request()
-creds.refresh(auth_req)
-token = creds.token
 
-# Replace with your actual Firebase project ID
-PROJECT_ID = "syntax-drip-webpage"
-FIRESTORE_URL = f"https://firestore.googleapis.com/v1/projects/{PROJECT_ID}/databases/(default)/documents/callbacks"
+# Replace with your new Firebase project ID
+PROJECT_ID = "syntax-drip-webpage-a9c99"
+FIRESTORE_URL = f"https://firestore.googleapis.com/v1/projects/syntax-drip-webpage-a9c99/databases/(default)/documents/callbacks"
 
 @app.route("/")
 def home():
@@ -46,6 +47,10 @@ def submit_phone():
 
         full_number = country_code + phone_number
 
+        # 🔄 Refresh token here to keep it valid
+        creds.refresh(auth_req)
+        token = creds.token
+
         payload = {
             "fields": {
                 "phoneNumber": {"stringValue": full_number},
@@ -60,10 +65,12 @@ def submit_phone():
 
         response = requests.post(FIRESTORE_URL, headers=headers, json=payload)
 
+        print("🔥 Firestore status:", response.status_code)
+        print("🔥 Firestore response:", response.text)
+
         if response.status_code == 200:
             return jsonify({"success": True, "message": "Saved to Firestore via REST."})
         else:
-            print("❌ Firestore error:", response.text)
             return jsonify({"success": False, "message": "Failed to write to Firestore."}), 500
 
     except Exception as e:
