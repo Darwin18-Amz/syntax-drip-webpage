@@ -1,3 +1,5 @@
+import os
+import json
 from flask import Flask, request, render_template, jsonify
 from google.oauth2 import service_account
 import google.auth.transport.requests
@@ -6,21 +8,21 @@ from datetime import datetime, timezone
 
 app = Flask(__name__)
 
-# Firestore setup
-project_id = "syntax-drip-webpage-a9c99"
-url = f"https://firestore.googleapis.com/v1/projects/{project_id}/databases/(default)/documents/leads"
-
-# Load service account and refresh token
-creds = service_account.Credentials.from_service_account_file(
-    "serviceAccountKey.json",
+# Load service account credentials from env
+service_account_info = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
+creds = service_account.Credentials.from_service_account_info(
+    service_account_info,
     scopes=["https://www.googleapis.com/auth/datastore"]
 )
+
 auth_req = google.auth.transport.requests.Request()
 creds.refresh(auth_req)
-token = creds.token
+
+project_id = service_account_info["project_id"]
+url = f"https://firestore.googleapis.com/v1/projects/{project_id}/databases/(default)/documents/leads"
 
 headers = {
-    "Authorization": f"Bearer {token}",
+    "Authorization": f"Bearer {creds.token}",
     "Content-Type": "application/json"
 }
 
@@ -38,7 +40,6 @@ def submit():
     if not name or not phone:
         return jsonify(success=False, message="Missing fields")
 
-    # Build Firestore payload
     payload = {
         "fields": {
             "name": {"stringValue": name},
@@ -47,23 +48,16 @@ def submit():
         }
     }
 
-    print("Submitting payload to Firestore:")
-    print(payload)
-
-    # Refresh token before request (important)
     creds.refresh(auth_req)
     headers["Authorization"] = f"Bearer {creds.token}"
 
     response = requests.post(url, headers=headers, json=payload)
 
-    print("Firestore API Response:")
-    print("Status Code:", response.status_code)
-    print("Response Body:", response.text)
-
     if response.status_code == 200:
         return jsonify(success=True)
     else:
+        print("Error:", response.text)
         return jsonify(success=False, message="Failed to write to Firestore")
 
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=5004)
+    app.run(debug=True, host="0.0.0.0", port=5000)
