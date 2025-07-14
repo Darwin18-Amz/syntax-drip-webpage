@@ -944,13 +944,33 @@ footer{
     return;
   }
 
-  if (!phoneRegex.test(number)) {
-    showToast("Enter a valid 10-digit number", true);
-  } else {
-    showToast("Submitted! We'll call you back shortly");
-    phoneInput.value = "";
-    nameInput.value = "";
-  }
+if (!phoneRegex.test(number)) {
+  showToast("Enter a valid 10-digit number", true);
+} else {
+  fetch('/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: name,
+      phone: number,
+      countryCode: document.getElementById("country-code").value
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      showToast("Submitted! We'll call you back shortly");
+      phoneInput.value = "";
+      nameInput.value = "";
+    } else {
+      showToast("Submission failed. Try again.", true);
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    showToast("Server error. Try again.", true);
+  });
+}
 }
 
 
