@@ -681,6 +681,24 @@
     });
   }
 
+  function submitPhone() {
+    const nameInput = document.getElementById('user-name');
+    const phoneInput = document.getElementById('phone-number');
+    const name = nameInput.value.trim();
+    const number = phoneInput.value.trim();
+    const phoneRegex = /^[0-9]{10}$/;
+
+    if (name === "") {
+      showToast("Enter your name", true);
+    } else if (!phoneRegex.test(number)) {
+      showToast("Enter a valid 10-digit number", true);
+    } else {
+      showToast(`✅ Submitted! We'll call you back shortly, ${name}.`);
+      nameInput.value = "";
+      phoneInput.value = "";
+    }
+  }
+
   // ✅ Phone number: allow only digits and max 10 characters
   document.getElementById('phone-number').addEventListener('input', function () {
     this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
@@ -738,53 +756,5 @@
   });
 </script>
 <div id="toast"></div>
-<!-- ✅ Add Firebase initialization script here -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCY-tlajv6MiNpedvNUOm0Y4SMqe1DdT50",
-    authDomain: "syntax-drip-webpage-a9c99.firebaseapp.com",
-    projectId: "syntax-drip-webpage-a9c99",
-    storageBucket: "syntax-drip-webpage-a9c99.appspot.com",
-    messagingSenderId: "429029025226",
-    appId: "1:429029025226:web:0d974c8769603a7cf1db33",
-    measurementId: "G-LXFX4NJ5LT"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  window.db = db; // expose to global for use in other scripts
-
-  window.submitPhone = async function submitPhone() {
-  const nameInput = document.getElementById('user-name');
-  const phoneInput = document.getElementById('phone-number');
-  const name = nameInput.value.trim();
-  const number = phoneInput.value.trim();
-  const phoneRegex = /^[0-9]{10}$/;
-
-  if (name === "") {
-    showToast("Enter your name", true);
-  } else if (!phoneRegex.test(number)) {
-    showToast("Enter a valid 10-digit number", true);
-  } else {
-    try {
-      await addDoc(collection(window.db, "leads"), {
-        name: name,
-        phone: number,
-        timestamp: new Date()
-      });
-      showToast(`✅ Submitted! We'll call you back shortly, ${name}.`);
-      nameInput.value = "";
-      phoneInput.value = "";
-    } catch (error) {
-      console.error("Error saving to Firestore:", error);
-      showToast("❌ Failed to save. Try again later.", true);
-    }
-  }
-}
-</script>
 </body>
 </html>
