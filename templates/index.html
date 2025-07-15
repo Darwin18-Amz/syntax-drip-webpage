@@ -1,1047 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <link rel="icon" href="/static/Tab Logo.png" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Syntax Drip</title>
-
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Final year projects made easy. Get the full bundle for ₹2,999 – complete project, docs, PPT, and expert guidance.">
-  <meta name="keywords" content="final year projects, cheap college projects, mini projects, project support, syntax drip, student projects">
-  <meta name="author" content="Syntax Drip">
-  <meta name="robots" content="index, follow">
-
-  <!-- Social Sharing Tags -->
-  <meta property="og:title" content="Syntax Drip - Final Year Projects Just ₹2,999">
-  <meta property="og:description" content="Get complete project + docs + support. Built by devs who know deadlines.">
-  <meta property="og:image" content="https://yourdomain.com/static/project-cover.jpg">
-  <meta property="og:url" content="https://yourdomain.com">
-  <meta property="og:type" content="website">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Syntax Drip - Final Year Projects Just ₹2,999">
-  <meta name="twitter:description" content="Complete project + docs + support for just ₹2,999.">
-  <meta name="twitter:image" content="https://yourdomain.com/static/project-cover.jpg">
-
-
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syntax Drip - Futuristic Projects</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;500&display=swap');
-
-    :root {
-      --bg: #10151f;
-      --primary: #1abc9c;
-      --secondary: #e67e22;
-      --text: #ecf0f1;
-      --shadow: 0 6px 20px rgba(0,0,0,0.4);
-      --transition: 0.6s ease;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html, body {
-      height: 100%; width: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Roboto', sans-serif;
-      overflow-y: auto;
-      scrollbar-width: none;
+      margin: 0;
+      padding: 0;
       scroll-behavior: smooth;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #000, #1a1a40);
+      color: #f8f8f8;
     }
-
-    ::-webkit-scrollbar { display: none; }
-
-    section {
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
+    header, section {
+      padding: 80px 20px;
+      animation: fadeInUp 1s ease both;
     }
-
-    /* HEADER */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 2rem 2rem;
-      background: rgba(16, 21, 31, 0.85);
-      backdrop-filter: blur(6px);
-      box-shadow: var(--shadow);
-      z-index: 100;
-    }
-
-    .header-left,
-    .header-center,
-    .header-right {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .header-left {
-      justify-content: flex-start;
-    }
-
-    .header-right {
-      justify-content: flex-end;
-    }
-
-    .logo {
-      font-family: 'Poppins', sans-serif;
-      color: var(--primary);
-      font-size: 2rem;
-      letter-spacing: 5px;
-    }
-
-    nav a {
-      margin-left: 1.5rem;
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      transition: color var(--transition);
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0; bottom: -4px;
-      width: 100%; height: 2px;
-      background: var(--primary);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--transition);
-    }
-
-    nav a:hover {
-      color: var(--secondary);
-    }
-
-    nav a:hover::after {
-      transform: scaleX(1);
-    }
-
-    .social-icons {
-      display: flex;
-      padding: 0rem 2rem;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .social-icons a {
-      color: var(--text);
-      font-size: 1.5rem;
-      transition: color var(--transition);
-    }
-
-    .social-icons a:hover {
-      color: var(--primary);
-    }
-
-    /* HERO */
-    #hero {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1650&q=80') center/cover fixed;
-      position: relative;
-    }
-
-    #hero::after {
-      content: ' ';
-      position: absolute; inset: 0;
-      background: rgba(16,21,31,0.7);
-    }
-
-    .hero-content {
-      position: relative; z-index: 1;
-      max-width: 600px;
-      padding: 1rem;
-    }
-
-    .hero-logo {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(3rem, 8vw, 4rem);
-      color: var(--primary);
-      white-space: nowrap;
-      letter-spacing: 6px;
-      margin-bottom: 1rem;
-
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 1s ease forwards;
-    }
-
-    .hero-content h2 {
+    h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(2rem, 5vw, 2rem);
-      line-height: 2;
-      letter-spacing: 3px;
-      color: #ecf0f1;
-      margin-bottom: 3rem;
-
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 1s ease 0.4s forwards;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      white-space: nowrap;
       text-align: center;
+      margin-bottom: 40px;
+      color: #00ffe5;
+      letter-spacing: 1px;
     }
-
-    .hero-content button {
-      background: var(--secondary);
-      color: #111;
-      border: none;
-      padding: 0.75rem 2rem;
-      font-size: 1rem;
-      font-weight: 500;
-      border-radius: 4px;
-      cursor: pointer;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 1s ease 0.8s forwards;
-      transition: background var(--transition), transform var(--transition);
-    }
-
-    .hero-content button:hover {
-      background: var(--primary);
-      transform: translateY(-3px);
-    }
-
-    /* SECTIONS */
-    .section {
+    header {
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
-      opacity: 0;
-      transform: scale(0.95);
-      transition: opacity var(--transition), transform var(--transition);
-      scroll-snap-align: start;
-    }
-
-    .section.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .split {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      max-width: 1200px;
-      width: 100%;
-    }
-
-    .text, .flip {
-      flex: 1 1 300px;
-    }
-
-    .text h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
-      color: var(--secondary);
-      margin-bottom: 1rem;
-    }
-
-    .text p {
-      font-size: 1.5rem;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-
-    .text a.btn {
-      display: inline-block;
-      background: var(--secondary);
-      color: #111;
-      padding: .5rem 1.5rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: background var(--transition), transform var(--transition);
-    }
-
-    .text a.btn:hover {
-      background: var(--primary);
-      transform: translateY(-2px);
-    }
-
-    .flip {
-      perspective: 800px;
-    }
-
-    .flip-inner {
-      width: 100%; height: 200px;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform var(--transition);
-    }
-
-<!--    .section:hover .flip-inner {-->
-<!--      transform: rotateY(180deg);-->
-<!--    }-->
-
-    .side {
-      position: absolute; inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backface-visibility: hidden;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.5rem;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      border-radius: 4px;
-    }
-
-    .back {
-      background: var(--primary);
-      color: #111;
-      transform: rotateY(180deg);
-    }
-
-    /* FOOTER */
-    footer {
       text-align: center;
-      padding: 2rem;
-      background: rgba(16,21,31,0.85);
-      color: var(--text);
-      box-shadow: var(--shadow);
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
     }
-
-    @keyframes fadeUp {
+    @media (min-width: 768px) {
+      header {
+        flex-direction: row;
+        text-align: left;
+        padding: 60px;
+      }
+    }
+    .hero-text {
+      max-width: 600px;
+    }
+    .hero-text h1 {
+      font-size: 3.5rem;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      color: #fff;
+      animation: flicker 3s infinite alternate;
+    }
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-top: 20px;
+    }
+    .cta {
+      margin-top: 30px;
+      background: #00ffc3;
+      color: #000;
+      padding: 14px 36px;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 0 20px #00ffc3aa;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #00ffc3ee;
+    }
+    .hero-logo {
+      max-width: 100%;
+      width: 300px;
+      border-radius: 20px;
+      margin-top: 30px;
+    }
+    @media (min-width: 768px) {
+      .hero-logo {
+        margin-top: 0;
+        margin-left: 40px;
+      }
+    }
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .card-box {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 0 12px rgba(0, 255, 195, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .card-box:hover {
+      transform: translateY(-8px);
+    }
+    .workflow-step {
+      text-align: center;
+    }
+    .form-container {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 500px;
+      margin: 0 auto;
+      animation: zoomIn 0.8s ease;
+    }
+    .form-label, .form-control {
+      color: #fff;
+    }
+    .form-control {
+      background: #1f1f2f;
+      border: 1px solid #3f3f46;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    footer {
+      background: rgba(0,0,0,0.7);
+      padding: 30px 20px;
+      text-align: center;
+    }
+    footer a {
+      color: #00ffc3;
+      margin: 0 8px;
+      text-decoration: none;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      50% { opacity: 0.85; }
+      100% { opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .contact-box {
-  flex: 1 1 300px;
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 columns */
-  gap: 1.5rem 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2rem;
-  border: 2px solid var(--primary);
-  border-radius: 12px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.7rem; /* Bigger font */
-  color: var(--text);
-}
-
-.contact-box a {
-  text-decoration: none;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  transition: color var(--transition);
-}
-
-.contact-box a:hover {
-  color: var(--primary);
-}
-
-/* PHONE INPUT STYLES ADDED BELOW (UNTOUCHED ABOVE) */
-.phone-input-wrapper {
-  margin-top: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.phone-input-wrapper select,
-.phone-input-wrapper input {
-  padding: 0.5rem 1rem;
-  border: 2px solid var(--primary);
-  background: transparent;
-  color: var(--text);
-  border-radius: 6px;
-  font-size: 1rem;
-  outline: none;
-}
-.phone-input-wrapper input{
-  width: 35%;
-}
-
-.phone-input-wrapper input::placeholder {
-  color: #ccc;
-}
-
-.phone-input-wrapper button {
-  background: var(--secondary);
-  color: #111;
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 200px;
-  transition: background var(--transition), transform var(--transition);
-}
-
-.phone-input-wrapper button:hover {
-  background: var(--primary);
-  transform: translateY(-2px);
-}
-
-.project-box {
-  flex: 1 1 300px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2rem;
-  border: 2px solid var(--primary);
-  border-radius: 12px;
-  height: 550px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.7rem;
-  color: var(--text);
-}
-.project-box ul{
-  margin: 0;
-  padding: 0;
-  font-size: 20px;
-}
-.project-box img {
-  max-width: 100%;
-  height: 46%;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  object-fit: cover;
-}
-#name-field{
-  width: 52%;
-}
-.pricing-offer {
-  text-align: center;
-  font-size: 1.7rem;
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
-}
-
-.highlight-price {
-  font-size: 2.8rem;
-  color: #ff6b6b;
-  font-weight: bold;
-}
-
-.package-title {
-  color: #ff6b6b;
-  margin-left: 15px;
-  margin-bottom: 20px;
-}
-  #price-box {
-    height: auto !important;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-  }
-
-  .pricing-offer {
-    font-size: 2.2rem;
-  }
-
-  .highlight-price {
-    font-size: 3rem;
-  }
-
-  #price-box small {
-    font-size: 1.9rem;
-  }
-.package-item {
-  color: var(--primary);
-  margin-left: 15px;
-  margin-bottom: 10px;
-}
-
-.line-highlight {
-  color: #ff6b6b;
-}
-
-.text {
-  position: relative; /* 👈 Add this */
-}
-
-#toast {
-  position: fixed;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%) scale(0.95);
-  background-color: #1abc9c;
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  font-size: 1rem;
-  white-space: nowrap;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
-  visibility: hidden;
-  opacity: 0;
-  z-index: 9999;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-#toast.show {
-  visibility: visible;
-  opacity: 1;
-  transform: translateX(-50%) scale(1.05);
-  animation: bouncePop 0.5s ease;
-}
-
-/* mobile responsive section*/
-@media (max-width: 768px) {
-header {
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-}
-
-  .header-left nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1.2rem;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0.5rem 0;
-  }
-
-  .header-left nav a {
-    font-size: 1rem;
-    margin: 0; /* reset desktop's margin-left */
-  }
-
-.header-center, .header-right {
-  justify-content: center;
-  width: 100%;
-  margin-top: 1rem;
-}
-
-.social-icons {
-  padding: 1rem 0;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.split {
-  flex-direction: column;
-  align-items: center;
-}
-
-.project-box, .text, .contact-box {
-  width: 100%;
-  flex: unset;
-}
-
-.hero-content {
-  padding: 1rem;
-}
-
-.phone-input-wrapper {
-  flex-direction: column;
-  align-items: stretch;
-  gap: 1rem;
-}
-
-.phone-input-wrapper select,
-.phone-input-wrapper input,
-.phone-input-wrapper button {
-  width: 100%;
-}
-
-.hero-content button {
-  width: 60%;
-  white-space: nowrap;
-
-
-}
-
-}
-
-@media (max-width: 480px) {
-.hero-logo {
-  font-size: 1.2rem;
-  letter-spacing: 2px;
-  text-align: center;
-}
-
-.hero-content h2 {
-  font-size: 0.7rem;
-  letter-spacing: 1px;
-  line-height: 1.4;
-  text-align: center;
-}
-
-#toast {
-  font-size: 0.9rem;
-  padding: 0.7rem 1rem;
-}
-
-.text p {
-  font-size: 1.2rem;
-  text-align: center;
-  font-size: 1.2rem;
-  line-height: 1.4;
-}
- #project-head,#price-head,#contact-head{
-  text-align: center;
- }
-section {
-  scroll-snap-align: none;
-  scroll-snap-stop: normal;
-}
-
-.project-box ul {
-  padding: 0;
-  margin: 0;
-  white-space: nowrap;
-}
-.project-box li {
-  font-size:20px;
-}
-.project-box{
-  width: 100%;
-  height: auto;
-}
-
-.highlight-price{
-  font-size: 2rem;
-}
-
- .pricing-offer small {
-     font-size: 12px !important;
-  }
-
-  .text a.btn {
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-  }
-.pricing-offer{
-  margin: 0;
-  padding:0;
-  white-space:nowrap;
-  font-size: 1rem !important;
-  align-items: center;
-  gap: 0.9rem !important;
-  width: 230px;
-
-}
-#price-box {
-  height: 100%;
-  padding: 1rem;
-}
-
-
-.contact-box{
-  margin: 0;
-  padding: 5px;
-  white-space: nowrap;
-  font-size: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-  #pricing .split {
-  flex-direction: column-reverse;
-}
-       .phone-input-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    width: 100%;
-  }
-
-  #name-field {
-    width: 100%;
-  }
-
-  .phone-input-wrapper > div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-    width: 100%;
-    flex-wrap: nowrap;
-  }
-
-  .phone-input-wrapper > div select {
-    flex-shrink: 0;
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
-  }
-
-  .phone-input-wrapper > div input[type="text"] {
-    flex: 1;
-    min-width: 0;
-  }
-
-  #contact-btn {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-  .phone-input-wrapper > div select {
-  appearance: none;
-  padding: 0.5rem;
-  height: 42px;
-  line-height: 1.2;
-  font-size: 1rem;
-  text-align: center;
-  vertical-align: middle;
-  background-color: transparent;
-  color: var(--text);
-  border: 2px solid var(--primary);
-  border-radius: 6px;
-}
-footer{
-  margin-right: 12px;
-  white-space: nowrap;
-}
-
-}
-
-
-
-
-@keyframes bouncePop {
-  0% {
-    transform: translateX(-50%) scale(0.8);
-    opacity: 0;
-  }
-  50% {
-    transform: translateX(-50%) scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) scale(1);
-    opacity: 1;
-  }
-}
-
-
-
-
-@keyframes fadein {
-  from { bottom: 20px; opacity: 0; }
-  to { bottom: 40px; opacity: 1; }
-}
-
-@keyframes fadeout {
-  from { bottom: 40px; opacity: 1; }
-  to { bottom: 20px; opacity: 0; }
-}
-
-
-    @media(max-width:768px) {
-      header { padding: 1rem; }
-      .hero-content { padding: 1rem; }
-      .split { flex-direction: column; }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
 <body>
-
 <header>
-  <div class="header-left">
-    <nav>
-      <a href="#projects">Proj44ts</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <div class="hero-text">
+    <h1>Syntax Drip</h1>
+    <p>Final year projects that come with everything you need: code, docs, presentation, and expert support. Trusted by thousands of students across India.</p>
+    <a href="#callback" class="cta">Request a Callback</a>
   </div>
-
-  <div class="header-center">
-    <div class="logo">SYNTAX DRIP</div>
-  </div>
-
-  <div class="header-right social-icons">
-    <a href="https://wa.me/918807427414?text=Hi%20Syntax%20Drip%2C%20I'm%20interested%20in%20your%20project%20package.%20Please%20share%20details."
-       target="_blank" title="WhatsApp">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=syntaxdrip@gmail.com&su=Project%20Query&body=Hi%20Syntax%20Drip%2C%20I'm%20interested%20in%20your%20project%20package.%20Please%20share%20details."
-       target="_blank" title="Email">
-      <i class="fas fa-envelope"></i>
-    </a>
-    <a href="https://www.instagram.com/syntax_drip" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.linkedin.com/in/syntax-drip-58a116374/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-  </div>
+  <img src="https://www.syntaxdrip.com/static/Tab%20Logo.png" alt="Logo" class="hero-logo">
 </header>
 
-<section id="hero" class="section visible">
-  <div class="hero-content">
-    <h1 class="hero-logo">PROJECT PANIC? CHILL, BRO.</h1>
-    <h2>Best Project. Low Price. Fast Delivery</h2>
-    <button onclick="document.getElementById('projects').scrollIntoView()">Explore projects</button>
-  </div>
-</section>
-
-<section id="projects" class="section">
-  <div class="split">
-    <div class="text">
-      <h2 id="project-head">Projects</h2>
-      <p>
-        Struggling with your final year project? Unsure where to start, what to build, or how to present?
-        We make it super easy <span class="line-highlight"> from idea to final review.</span> We provide a project bundle that includes a comprehensive package,
-        complimentary add-ons, and a full guide, all wrapped up in a way that’s easy to understand, cleanly built, and consistently delivered on time.
-        Rushing before your review? Don’t stress.  <span class="line-highlight"> Hit us up even for last-minute submissions.</span>
-        Just clean, simple, and ready-to-use project support designed by developers who’ve faced the same deadlines.
-      </p>
-
-      <a href="#pricing" class="btn" id="explore-btn">Explore Price</a>
+<section id="features" class="container">
+  <h2>Our Services</h2>
+  <div class="section-grid">
+    <div class="card-box text-center">
+      <h4>Project Bundles</h4>
+      <p>Get full source code, PPTs, reports, and walkthroughs.</p>
     </div>
-    <div class="project-box">
-      <img src="{{ url_for('static', filename='pexels-pixabay-270348.jpg') }}" alt="College Final Year Project Screenshot">
-      <ul>
-        <li class="package-title"><strong>FULL PACKAGE INCLUDES:</strong></li>
-        <li class="package-item">Full Project 💻</li>
-        <li class="package-item">Base Paper 📄</li>
-        <li class="package-item">Architecture Diagram 📊</li>
-        <li class="package-item">Presentation 🖥</li>
-        <li class="package-item">Documentation 📚</li>
-        <li class="package-item">Full Guide 📝</li>
-      </ul>
+    <div class="card-box text-center">
+      <h4>Live Support</h4>
+      <p>1-on-1 guidance and help customizing your project.</p>
     </div>
-
-</section>
-
-<section id="pricing" class="section">
-  <div class="split">
-    <div class="project-box" id="price-box">
-      <div class="pricing-offer">
-        <p>Why pay ₹4,000 – ₹25,000 for Projects?</p>
-        <p>Get Final Year Project Bundle – Just for</p>
-        <p class="highlight-price">₹2,999 👑</p>
-        <small>(Complete Project + Documents + PPT + Support)</small>
-      </div>
-    </div>
-    <div class="text">
-      <h2 id="price-head">Pricing</h2>
-      <p><span class="line-highlight">Why So Cheap?</span> How is it just ₹2,999?
-        Because we were students too — we know the struggle. Honestly, we’re done watching students get milked for ₹20K+ in the name of “final year projects.”
-        The market’s full of overpriced bundles, so we built something better: Quality Projects, Affordable, and Reliable.
-        All in <span class="line-highlight">just ₹2,999 Only.</span> You get everything. No hidden charges. No fluff.
-      </p>
-      <a href="#contact" class="btn">Contact Us</a>
+    <div class="card-box text-center">
+      <h4>Fast Delivery</h4>
+      <p>Receive your full bundle within 24 hours of order.</p>
     </div>
   </div>
 </section>
 
-<section id="contact" class="section">
-  <div class="split">
-    <div class="text">
-      <h2 id="contact-head">Contact Us</h2>
-      <p>From general queries to urgent project requests, we’ve got you covered.
-        Reach out via Call, WhatsApp, Email, Instagram, or DM — whatever’s easiest for you.
-        🗓  <span class="line-highlight">Available: Anytime, Any day.</span></span></p>
-      <div class="phone-input-wrapper">
-        <input type="text" id="name-field" placeholder="Enter your Name" />
-        <div style="display: flex; width: 100%; gap: 1rem; flex-wrap: wrap;">
-          <select id="country-code">
-            <option value="+91">+91</option>
-            <option value="+1">+1</option>
-            <option value="+44">+44</option>
-            <option value="+61">+61</option>
-          </select>
-          <input type="text" id="phone-number" maxlength="10" placeholder="Enter 10-digit number" />
-          <button onclick="submitPhone()" id="contact-btn">Get Call Back</button>
-        </div>
-      </div>
-
+<section id="workflow" class="container">
+  <h2>How It Works</h2>
+  <div class="section-grid">
+    <div class="card-box workflow-step">
+      <h5>Step 1</h5>
+      <p>Choose your topic or let us recommend the best one.</p>
     </div>
-
-    <div class="contact-box">
-      <a href="tel:8807427414" title="Call">
-        <i class="fas fa-phone-alt"></i> 8807427414
-      </a>
-      <a href="https://wa.me/918807427414?text=Hi%20Syntax%20Drip%2C%20I'm%20interested%20in%20your%20project%20package.%20Please%20share%20details."
-         target="_blank" title="WhatsApp">
-        <i class="fab fa-whatsapp"></i> syntaxdrip
-      </a>
-      <a href="https://instagram.com/syntax_drip" target="_blank" title="Instagram">
-        <i class="fab fa-instagram"></i> syntax_drip
-      </a>
-      <a href="https://www.facebook.com/people/Syntax-Drip/pfbid0n47rgPVL9jj2RGjzJvbydRvN6SKRFwCZMDDx73KGCxvgAifJLJJgakqttLWuewctl/?mibextid=wwXIfr&rdid=khkyhKcRIQIVmGAz&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AfAnctqKq%2F%3Fmibextid%3DwwXIfr" target="_blank" title="Facebook">
-        <i class="fab fa-facebook"></i> syntaxdrip
-      </a>
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=syntaxdrip@gmail.com&su=Project%20Query&body=Hi%20Syntax%20Drip%2C%20I'm%20interested%20in%20your%20project%20package.%20Please%20share%20details."
-         target="_blank" title="Email">
-        <i class="fas fa-envelope"></i> syntaxdrip@gmail.com
-      </a>
-      <a href="https://www.linkedin.com/in/syntax-drip-58a116374?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" title="LinkedIn">
-        <i class="fab fa-linkedin"></i> syntaxdrip
-      </a>
+    <div class="card-box workflow-step">
+      <h5>Step 2</h5>
+      <p>You get a complete project kit with help when needed.</p>
+    </div>
+    <div class="card-box workflow-step">
+      <h5>Step 3</h5>
+      <p>Submit your project with confidence and clarity.</p>
     </div>
   </div>
 </section>
-<footer>©️ 2025 Syntax Drip — All rights reserved.</footer>
+
+<section id="callback" class="container">
+  <h2>Request a Callback</h2>
+  <div class="form-container">
+    <form>
+      <label for="name" class="form-label">Full Name</label>
+      <input type="text" id="name" class="form-control" placeholder="Your name" required>
+      <label for="phone" class="form-label">Phone Number</label>
+      <input type="tel" id="phone" class="form-control" placeholder="e.g. +91 9876543210" required>
+      <button type="submit" class="btn btn-success w-100 mt-2">Submit</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 Syntax Drip. All rights reserved.</p>
+  <nav>
+    <a href="#">About</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </nav>
+  <div class="social-icons mt-2">
+    <a href="#">Instagram</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Twitter</a>
+  </div>
+</footer>
+
 <script>
-  function showToast(message, isError = false) {
-  const toast = document.getElementById("toast");
-
-  toast.textContent = message;
-  toast.style.backgroundColor = isError ? "#e74c3c" : "#1abc9c";
-
-  // Cancel previous timeout if still running
-  clearTimeout(toast.dismissTimeout);
-
-  // Reset animation by forcing reflow
-  toast.classList.remove("show");
-  toast.style.visibility = "hidden";
-  toast.style.opacity = "0";
-
-  // Wait a single animation frame before re-adding the class
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      toast.classList.add("show");
-      toast.style.visibility = "visible";
-      toast.style.opacity = "1";
-
-      toast.dismissTimeout = setTimeout(() => {
-        toast.classList.remove("show");
-        toast.style.visibility = "hidden";
-        toast.style.opacity = "0";
-      }, 3000);
-    });
-  });
-}
-
-
-  function submitPhone() {
-  const phoneInput = document.getElementById('phone-number');
-  const nameInput = document.getElementById('name-field');
-  const number = phoneInput.value.trim();
-  const name = nameInput.value.trim();
-  const phoneRegex = /^[0-9]{10}$/;
-  const nameRegex = /^[A-Za-z]+(?: [A-Za-z]+)?$/; // One optional space between two words
-
-  if (name === '') {
-    showToast("Enter your Name", true);
-    return;
+  if (window.location.hash === "#callback") {
+    window.history.replaceState(null, null, window.location.pathname);
+    window.scrollTo(0, 0);
   }
-
-  if (!nameRegex.test(name)) {
-    showToast("Name must contain only letters and a single space.", true);
-    return;
-  }
-
-if (!phoneRegex.test(number)) {
-  showToast("Enter a valid 10-digit number", true);
-} else {
-  fetch('/submit', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      name: name,
-      phone: number,
-      countryCode: document.getElementById("country-code").value
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      showToast("Submitted! We'll call you back shortly");
-      phoneInput.value = "";
-      nameInput.value = "";
-    } else {
-      showToast("Submission failed. Try again.", true);
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    showToast("Server error. Try again.", true);
-  });
-}
-}
-
-
-  // Restrict non-numeric characters
-  document.getElementById('phone-number').addEventListener('input', function (e) {
-    this.value = this.value.replace(/[^0-9]/g, '');
-  });
-  document.getElementById('name-field').addEventListener('input', function () {
-  let value = this.value;
-
-  // Remove all characters except letters and a single space
-  value = value.replace(/[^a-zA-Z ]/g, '');
-
-  // Ensure only one space
-  const parts = value.split(' ').filter(Boolean);
-  if (parts.length > 2) {
-    value = parts.slice(0, 2).join(' ');
-  }
-
-  // Enforce 12-character limit
-  if (value.length > 20) {
-    value = value.substring(0, 20);
-  }
-
-  this.value = value;
-});
-</script>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LXFX4NJ5LT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LXFX4NJ5LT');
-</script>
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Final Year Project Bundle",
-    "description": "Ready-to-use final year projects with full guide, code, documents, and presentation – just ₹2,999.",
-    "brand": {
-      "@type": "Organization",
-      "name": "Syntax Drip"
-    },
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "INR",
-      "price": "2999",
-      "availability": "https://schema.org/InStock"
-    }
-  }
-</script>
-<script>
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.section').forEach(section => {
-    observer.observe(section);
+  window.addEventListener("load", () => {
+    window.scrollTo({ top: 0, behavior: "auto" });
   });
 </script>
-<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
