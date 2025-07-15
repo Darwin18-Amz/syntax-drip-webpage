@@ -60,4 +60,4 @@ def submit():
         return jsonify(success=False, message="Failed to write to Firestore")
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5060)
+    app.run(debug=True, host="0.0.0.0", port=5000)
