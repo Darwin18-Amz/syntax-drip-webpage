@@ -9,7 +9,8 @@ from datetime import datetime, timezone
 app = Flask(__name__)
 
 # Load service account credentials from env
-service_account_info = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
+with open("serviceAccountKey.json") as f:
+    service_account_info = json.load(f)
 creds = service_account.Credentials.from_service_account_info(
     service_account_info,
     scopes=["https://www.googleapis.com/auth/datastore"]
