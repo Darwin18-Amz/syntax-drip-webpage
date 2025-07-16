@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Syntax Drip - Futuristic Projects</title>
+  <title>Syntax Drip - Final Year Projects</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -13,17 +13,23 @@
 
   <style>
     html, body {
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-      font-family: 'Inter', sans-serif;
-      color: #f8f8f8;
-      background: linear-gradient(135deg, #0a0a14, #191933, #2a2a60);
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+  background: url('/static/Bg 1.png') no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+  color: #f8f8f8;
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
 
-      <!--background: linear-gradient(135deg, #000, #1a1a40);-->
-      }
-
-    header, section {
+ header, section {
       padding: 80px 20px;
       animation: fadeInUp 1s ease both;
     }
@@ -43,12 +49,8 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      background: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay only */
 
-      background: linear-gradient(135deg, #05050a, #1a1a50, #805f00);
-
-      <!--background: linear-gradient(135deg, #11111f, #3b3b98, #ffba08);-->
-      <!--background: linear-gradient(135deg, #0d0d0d, #1f005c, #5f0f40);-->
-      <!--background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);-->
     }
 
     @media (min-width: 768px) {
@@ -66,12 +68,14 @@
     }
 
     .hero-title {
-      font-size: 3.5rem;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: bold;
-      color: #fff;
-      animation: flicker 3s infinite alternate;
-    }
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  color: #fff;
+  animation: flicker 3s infinite alternate;
+  white-space: nowrap;
+}
+
 
     .hero-subtitle {
       font-size: 1.2rem;
@@ -118,14 +122,15 @@
       gap: 30px;
     }
 
-    .card-box {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 0 12px rgba(0, 255, 195, 0.1);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
+   .card-box {
+  background: #0f0f1f; /* solid dark color */
+  border: 2px solid #00ffe5;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 0 20px rgba(0, 255, 195, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
 
     .card-box:hover {
       transform: translateY(-8px);
@@ -136,17 +141,21 @@
     }
 
     .form-container {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      padding: 30px;
-      max-width: 500px;
-      margin: 0 auto;
-      animation: zoomIn 0.8s ease;
-    }
+  background: #0f0f1f; /* solid dark tech background */
+  border: 2px solid #00ffe5;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0, 255, 195, 0.25);
+  animation: zoomIn 0.8s ease;
+}
+
 
     .form-label,
     .form-control {
-      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+
     }
 
     .form-control {
@@ -158,7 +167,7 @@
     }
 
     footer {
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.6);
       padding: 30px 30px;
       text-align: center;
     }
@@ -366,14 +375,65 @@
 .animated-taglines p.tagline {
   font-size: clamp(1.5rem, 6vw, 3rem);
 }
+    @media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .tagline {
+    font-size: 1.25rem;
+    padding: 0 10px;
+    white-space: normal;
+  }
+
+  .section-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-container {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .card-box {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 0 12px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.button-group::-webkit-scrollbar {
+  display: none;
+}
+
+.btn-explore,
+.btn-contact {
+  flex-shrink: 0;
+  white-space: nowrap;
+  width: auto;
+  min-width: 140px;
+  font-size: clamp(0.9rem, 4vw, 1rem);
+  padding: 12px 24px;
+}
 
 
   </style>
 
 </head>
 <body>
-
-<header class="d-flex flex-column justify-content-between text-center px-3 flex-wrap" style="min-height: 100vh;">
+<header class="text-center d-flex flex-column justify-content-center align-items-center px-3" style="min-height: 100vh;">
   <div class="pt-5">
     <h1 class="hero-title neon-slide-bounce">Syntax Drip</h1>
   </div>
@@ -390,27 +450,23 @@
     <a href="#features" class="btn btn-explore cta-animated">Explore</a>
     <a href="#contact" class="btn btn-contact cta-animated">Contact Us</a>
   </div>
-
-
 </header>
 
-
-
-
+<main>
 <section id="features" class="container">
   <h2>Our Services</h2>
   <div class="section-grid">
     <div class="card-box text-center">
-      <h4>Project Bundles</h4>
-      <p>Get full source code, PPTs, reports, and walkthroughs.</p>
+      <h4>Project Bundle</h4>
+      <p>Get Full Source Code, Base Paper, Arch. Diagrams, PPTs, Documents, and Full Guide.</p>
     </div>
     <div class="card-box text-center">
-      <h4>Live Support</h4>
-      <p>1-on-1 guidance and help customizing your project.</p>
+      <h4>Pricing ₹2,999 👑</h4>
+      <p>Why pay ₹4,000 – ₹25,000 for Projects? Get Final Year Project Bundle – Just for ₹2,999</p>
     </div>
     <div class="card-box text-center">
       <h4>Fast Delivery</h4>
-      <p>Receive your full bundle within 24 hours of order.</p>
+      <p>Receive your full bundle within hours of order along with full time customer support.</p>
     </div>
   </div>
 </section>
@@ -443,25 +499,43 @@
   </div>
 </section>
 
+  <section id="callback" class="container text-center">
+    <h2 class="mb-4">Request a Callback</h2>
+    <div class="form-container text-start">
+      <form id="callbackForm" novalidate>
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <input
+                  type="text"
+                  id="name"
+                  class="form-control"
+                  placeholder="Your Name"
+                  maxlength="20"
+                  pattern="[A-Za-z]{1,19}( [A-Za-z]{1,19})?"
+                  title="Only letters allowed, max one space, up to 20 characters"
+                  required
+          >
+        </div>
 
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input
+                  type="tel"
+                  id="phone"
+                  class="form-control"
+                  placeholder="Enter Phone Number"
+                  maxlength="10"
+                  pattern="[0-9]{10}"
+                  title="Only 10 digits allowed"
+                  inputmode="numeric"
+                  required
+          >
+        </div>
 
-<section id="callback" class="container text-center">
-  <h2 class="mb-4">Request a Callback</h2>
-  <div class="form-container text-start">
-    <form>
-      <div class="mb-3">
-        <label for="name" class="form-label">Full Name</label>
-        <input type="text" id="name" class="form-control" placeholder="Your name" required>
-      </div>
-      <div class="mb-3">
-        <label for="phone" class="form-label">Phone Number</label>
-        <input type="tel" id="phone" class="form-control" placeholder="e.g. +91 9876543210" required>
-      </div>
-      <button type="submit" class="btn btn-success w-100 mt-2">Submit</button>
-    </form>
-  </div>
-</section>
-
+        <button type="submit" class="btn btn-success w-100 mt-2">Submit</button>
+      </form>
+    </div>
+  </section>
 
 <footer>
   <div class="container text-center">
@@ -487,17 +561,7 @@
     <p class="mt-3 mb-0" style="font-size: 0.75rem;">&copy; 2025 Syntax Drip. All rights reserved.</p>
   </div>
 </footer>
-
-
-<script>
-  if (window.location.hash === "#callback") {
-    window.history.replaceState(null, null, window.location.pathname);
-    window.scrollTo(0, 0);
-  }
-  window.addEventListener("load", () => {
-    window.scrollTo({ top: 0, behavior: "auto" });
-  });
-</script>
+</main>
 <script>
   const taglines = document.querySelectorAll(".tagline");
   let index = 0;
@@ -526,7 +590,90 @@ el.style.animation = "typing 2s steps(30, end) forwards, blink 0.75s step-end 6"
   window.addEventListener("load", showNextTagline);
 </script>
 
+<script>
+  // Reset scroll if URL hash is #callback
+  if (window.location.hash === "#callback") {
+    window.history.replaceState(null, null, window.location.pathname);
+    window.scrollTo(0, 0);
+  }
 
+  window.addEventListener("load", () => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  });
+
+  // Typing animation logic
+  const taglines = document.querySelectorAll(".tagline");
+  let index = 0;
+
+  function showNextTagline() {
+    if (index < taglines.length) {
+      const el = taglines[index];
+      el.classList.remove("d-none");
+      el.style.animation = "none";
+      void el.offsetWidth;
+      el.style.animation = "typing 2s steps(30, end) forwards, blink 0.75s step-end 6";
+
+      setTimeout(() => {
+        el.style.borderRight = "none";
+      }, 2750);
+
+      index++;
+      setTimeout(showNextTagline, 300);
+    }
+  }
+
+  window.addEventListener("load", showNextTagline);
+
+  // Form validation logic
+  document.getElementById("callbackForm").addEventListener("submit", function (e) {
+    const nameInput = document.getElementById("name");
+    const phoneInput = document.getElementById("phone");
+
+    const name = nameInput.value.trim();
+    const phone = phoneInput.value.trim();
+
+    const nameRegex = /^[A-Za-z]{1,19}( [A-Za-z]{1,19})?$/;
+    const phoneRegex = /^[0-9]{10}$/;
+
+    nameInput.setCustomValidity("");
+    phoneInput.setCustomValidity("");
+
+    if (!nameRegex.test(name)) {
+      e.preventDefault();
+      nameInput.setCustomValidity("Only alphabets allowed, max one space, up to 20 characters.");
+      nameInput.reportValidity();
+      return;
+    }
+
+    if (!phoneRegex.test(phone)) {
+      e.preventDefault();
+      phoneInput.setCustomValidity("Only 10 digits allowed.");
+      phoneInput.reportValidity();
+      return;
+    }
+
+    // If valid:
+    e.preventDefault();
+alert("Form submitted successfully!");
+
+// Optional: Reset the form
+document.getElementById("callbackForm").reset();
+
+  });
+
+  // Optional: restrict invalid characters live
+  document.getElementById("phone").addEventListener("input", function () {
+    this.value = this.value.replace(/[^0-9]/g, "");
+  });
+
+  document.getElementById("name").addEventListener("input", function () {
+    let value = this.value.replace(/[^a-zA-Z ]/g, '');
+    const parts = value.split(' ').filter(Boolean);
+    if (parts.length > 2) value = parts.slice(0, 2).join(' ');
+    if (value.length > 20) value = value.slice(0, 20);
+    this.value = value;
+  });
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
