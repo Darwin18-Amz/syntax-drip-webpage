@@ -624,43 +624,6 @@ el.style.animation = "typing 2s steps(30, end) forwards, blink 0.75s step-end 6"
 
   window.addEventListener("load", showNextTagline);
 
-  // Form validation logic
-  document.getElementById("callbackForm").addEventListener("submit", function (e) {
-    const nameInput = document.getElementById("name");
-    const phoneInput = document.getElementById("phone");
-
-    const name = nameInput.value.trim();
-    const phone = phoneInput.value.trim();
-
-    const nameRegex = /^[A-Za-z]{1,19}( [A-Za-z]{1,19})?$/;
-    const phoneRegex = /^[0-9]{10}$/;
-
-    nameInput.setCustomValidity("");
-    phoneInput.setCustomValidity("");
-
-    if (!nameRegex.test(name)) {
-      e.preventDefault();
-      nameInput.setCustomValidity("Only alphabets allowed, max one space, up to 20 characters.");
-      nameInput.reportValidity();
-      return;
-    }
-
-    if (!phoneRegex.test(phone)) {
-      e.preventDefault();
-      phoneInput.setCustomValidity("Only 10 digits allowed.");
-      phoneInput.reportValidity();
-      return;
-    }
-
-    // If valid:
-    e.preventDefault();
-alert("Form submitted successfully!");
-
-// Optional: Reset the form
-document.getElementById("callbackForm").reset();
-
-  });
-
   // Optional: restrict invalid characters live
   document.getElementById("phone").addEventListener("input", function () {
     this.value = this.value.replace(/[^0-9]/g, "");
@@ -674,6 +637,57 @@ document.getElementById("callbackForm").reset();
     this.value = value;
   });
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("callbackForm");
+
+    form.addEventListener("submit", function (e) {
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      const nameRegex = /^[A-Za-z]{1,19}( [A-Za-z]{1,19})?$/;
+      const phoneRegex = /^[0-9]{10}$/;
+
+      if (!nameRegex.test(name)) {
+        e.preventDefault();
+        document.getElementById("name").setCustomValidity("Only alphabets allowed, max one space, up to 20 characters.");
+        document.getElementById("name").reportValidity();
+        return;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        e.preventDefault();
+        document.getElementById("phone").setCustomValidity("Only 10 digits allowed.");
+        document.getElementById("phone").reportValidity();
+        return;
+      }
+
+      e.preventDefault();
+
+      // Send the form data to Flask backend
+      fetch("/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            alert("Form submitted successfully!");
+            form.reset();
+          } else {
+            alert("Submission failed: " + data.message);
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Server error. Please try again.");
+        });
+    });
+  });
+</script>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
