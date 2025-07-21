@@ -70,5 +70,5 @@ def submit():
 
 # ✅ PRODUCTION RUNNER (required for Render)
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Render sets $PORT automatically
+    port = int(os.environ.get("PORT", 5001))  # Render sets $PORT automatically
     app.run(host="0.0.0.0", port=port)

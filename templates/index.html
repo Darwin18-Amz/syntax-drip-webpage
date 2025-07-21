@@ -511,7 +511,6 @@ body::-webkit-scrollbar {
                   class="form-control"
                   placeholder="Your Name"
                   maxlength="20"
-                  pattern="[A-Za-z]{1,19}( [A-Za-z]{1,19})?"
                   title="Only letters allowed, max one space, up to 20 characters"
                   required
           >
@@ -563,131 +562,128 @@ body::-webkit-scrollbar {
 </footer>
 </main>
 <script>
-  const taglines = document.querySelectorAll(".tagline");
-  let index = 0;
-
-  function showNextTagline() {
-    if (index < taglines.length) {
-      const el = taglines[index];
-      el.classList.remove("d-none");
-
-      // Start the animation
-      el.style.animation = "none"; // reset animation
-void el.offsetWidth;         // trigger reflow
-el.style.animation = "typing 2s steps(30, end) forwards, blink 0.75s step-end 6";
-
-
-      // Remove cursor after typing is done + blinked
-      setTimeout(() => {
-        el.style.borderRight = "none";
-      }, 2750); // match typing (2s) + blink duration (~6 blinks)
-
-      index++;
-      setTimeout(showNextTagline, 300); // stagger delay between lines
-    }
-  }
-
-  window.addEventListener("load", showNextTagline);
-</script>
-
-<script>
-  // Reset scroll if URL hash is #callback
-  if (window.location.hash === "#callback") {
-    window.history.replaceState(null, null, window.location.pathname);
-    window.scrollTo(0, 0);
-  }
-
-  window.addEventListener("load", () => {
-    window.scrollTo({ top: 0, behavior: "auto" });
-  });
-
-  // Typing animation logic
-  const taglines = document.querySelectorAll(".tagline");
-  let index = 0;
-
-  function showNextTagline() {
-    if (index < taglines.length) {
-      const el = taglines[index];
-      el.classList.remove("d-none");
-      el.style.animation = "none";
-      void el.offsetWidth;
-      el.style.animation = "typing 2s steps(30, end) forwards, blink 0.75s step-end 6";
-
-      setTimeout(() => {
-        el.style.borderRight = "none";
-      }, 2750);
-
-      index++;
-      setTimeout(showNextTagline, 300);
-    }
-  }
-
-  window.addEventListener("load", showNextTagline);
-
-  // Optional: restrict invalid characters live
-  document.getElementById("phone").addEventListener("input", function () {
-    this.value = this.value.replace(/[^0-9]/g, "");
-  });
-
-  document.getElementById("name").addEventListener("input", function () {
-    let value = this.value.replace(/[^a-zA-Z ]/g, '');
-    const parts = value.split(' ').filter(Boolean);
-    if (parts.length > 2) value = parts.slice(0, 2).join(' ');
-    if (value.length > 20) value = value.slice(0, 20);
-    this.value = value;
-  });
-</script>
-
-<script>
   document.addEventListener("DOMContentLoaded", function () {
+    const taglines = document.querySelectorAll(".tagline");
+    let index = 0;
+
+    function showNextTagline() {
+      if (index < taglines.length) {
+        const el = taglines[index];
+        el.classList.remove("d-none");
+        el.style.animation = "none";
+        void el.offsetWidth;
+        el.style.animation = "typing 2s steps(30, end) forwards, blink 0.75s step-end 6";
+
+        setTimeout(() => {
+          el.style.borderRight = "none";
+        }, 2750);
+
+        index++;
+        setTimeout(showNextTagline, 300);
+      }
+    }
+
+    window.addEventListener("load", showNextTagline);
+
+    // 🔥 Now declare DOM elements once
     const form = document.getElementById("callbackForm");
+    const nameField = document.getElementById("name");
+    const phoneField = document.getElementById("phone");
 
-    form.addEventListener("submit", function (e) {
-      const name = document.getElementById("name").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-
-      const nameRegex = /^[A-Za-z]{1,19}( [A-Za-z]{1,19})?$/;
-      const phoneRegex = /^[0-9]{10}$/;
-
-      if (!nameRegex.test(name)) {
-        e.preventDefault();
-        document.getElementById("name").setCustomValidity("Only alphabets allowed, max one space, up to 20 characters.");
-        document.getElementById("name").reportValidity();
-        return;
-      }
-
-      if (!phoneRegex.test(phone)) {
-        e.preventDefault();
-        document.getElementById("phone").setCustomValidity("Only 10 digits allowed.");
-        document.getElementById("phone").reportValidity();
-        return;
-      }
-
-      e.preventDefault();
-
-      // Send the form data to Flask backend
-      fetch("/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone })
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            alert("Form submitted successfully!");
-            form.reset();
-          } else {
-            alert("Submission failed: " + data.message);
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          alert("Server error. Please try again.");
-        });
+    // ✅ Restrict phone to 10 digits
+    phoneField.addEventListener("input", function () {
+      this.value = this.value.replace(/[^0-9]/g, "").slice(0, 10);
     });
+
+    // ✅ Restrict name to letters + 1 space
+nameField.addEventListener("input", function () {
+  // Only allow alphabets and one space anywhere
+  let value = this.value;
+
+  // Remove invalid characters
+  value = value.replace(/[^A-Za-z ]/g, "");
+
+  // Allow only one space
+  const firstSpaceIndex = value.indexOf(" ");
+  if (firstSpaceIndex !== -1) {
+    // Remove any extra spaces beyond the first one
+    const before = value.slice(0, firstSpaceIndex + 1); // include space
+    const after = value.slice(firstSpaceIndex + 1).replace(/ /g, "");
+    value = before + after;
+  }
+
+  this.value = value.slice(0, 20); // Limit to 20 chars
+});
+
+    // ✅ Validate on submit
+    let formSubmitting = false;
+
+form.addEventListener("submit", function (e) {
+  if (formSubmitting) {
+    e.preventDefault();
+    return;
+  }
+
+  const name = nameField.value.trim();
+  const phone = phoneField.value.trim();
+  const submitButton = form.querySelector("button[type='submit']");
+
+  formSubmitting = true;
+  submitButton.disabled = true;
+
+  nameField.setCustomValidity("");
+  phoneField.setCustomValidity("");
+
+  const nameRegex = /^[A-Za-z]{1,20}( [A-Za-z]{1,20})?$/;
+  const phoneRegex = /^[0-9]{10}$/;
+
+  if (!nameRegex.test(name)) {
+    e.preventDefault();
+    nameField.setCustomValidity("Only alphabets allowed, max one space, up to 20 characters.");
+    nameField.reportValidity();
+    formSubmitting = false;
+    submitButton.disabled = false;
+    return;
+  }
+
+  if (!phoneRegex.test(phone)) {
+    e.preventDefault();
+    phoneField.setCustomValidity("Only 10 digits allowed.");
+    phoneField.reportValidity();
+    formSubmitting = false;
+    submitButton.disabled = false;
+    return;
+  }
+
+  e.preventDefault();
+
+  fetch("/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, phone })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("Form submitted successfully!");
+        form.reset();
+      } else {
+        alert("Submission failed: " + data.message);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Server error. Please try again.");
+    })
+    .finally(() => {
+      formSubmitting = false;
+      submitButton.disabled = false;
+    });
+});
+
+
   });
 </script>
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
